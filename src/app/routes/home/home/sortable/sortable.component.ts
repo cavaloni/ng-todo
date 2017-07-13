@@ -63,17 +63,7 @@ export class SortableComponent implements OnInit {
     //     this.initProducts();
     // }
 
-    changeVal(e) {
-        if (this.searchValue) {
-            if (this.searchValue.length > 20) {
-                return
-            } else {
-                this.searchValue = e
-            }
-        } 
-    }
-
-    addItem(form: NgForm) {
+    private addItem(form: NgForm) {
         this.remainingTasks.push(form.value.task)
         form.reset()
     }
