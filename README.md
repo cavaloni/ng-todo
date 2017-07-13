@@ -83,7 +83,7 @@ These values are updated through the ngModel directive which passes the value to
 The other buttons use event binding to pass in a string value of which array the item will be passed to, which is then handled by the moveTo method.
 
 ##Misc notes
-* Test writing is in progress for SortableList. The issue may be that the form process may need to include FormGroup and FormControl in order to update the values manually to be able to test with. 
+* Test writing is in progress for SortableList. The issue may be that the form process may need to include FormGroup and FormControl in order to update the values manually to be able to test with. This action is questionable to create a test so research is still underway.
 * Most of the original code in the component was simply commented out, so as to preserve its original state, in the spirit of using only components from Angle
 * Small changes were not noted in here, though they did require some research and knowledge; such as the settings component, which uses the HostBinding module.
 
