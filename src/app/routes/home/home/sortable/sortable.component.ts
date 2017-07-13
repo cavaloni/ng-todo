@@ -63,9 +63,19 @@ export class SortableComponent implements OnInit {
     //     this.initProducts();
     // }
 
+    changeVal(e) {
+        if (this.searchValue) {
+            if (this.searchValue.length > 20) {
+                return
+            } else {
+                this.searchValue = e
+            }
+        } 
+    }
+
     addItem(form: NgForm) {
         this.remainingTasks.push(form.value.task)
-        this.searchValue = null;
+        form.reset()
     }
 
     
@@ -77,7 +87,6 @@ export class SortableComponent implements OnInit {
         }
         const fromLocation = fromLocations[location]
         const index = this[fromLocation].indexOf(item);
-        console.log(fromLocation)
         if (index > -1) {
             this[fromLocation].splice(index, 1);
         }
@@ -85,6 +94,7 @@ export class SortableComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.searchValue = '';
     }
 
 }

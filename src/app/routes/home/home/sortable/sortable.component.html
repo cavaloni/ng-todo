@@ -1,17 +1,18 @@
 <!--<h4>
   Multi list sortable</h4>-->
-  <form class="form-horizontal" #taskForm="ngForm" (ngSubmit)="addItem(taskForm)" >
-    <fieldset>
-      <legend>Angular TODO</legend>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">New Task</label>
-        <div class="col-sm-10">
-          <input class="form-control form-control-rounded" type="text" name="task" #task="ngModel" ngModel [value]="searchValue"/>
-          <button class="btn btn-green submit" type="submit">Add Task</button>
-        </div>
+<form class="form-horizontal" #taskForm="ngForm" (ngSubmit)="addItem(taskForm)">
+  <fieldset>
+    <legend>Angular TODO</legend>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">New Task</label>
+      <div class="col-sm-10">
+        <input class="form-control form-control-rounded" type="text" name="task" #task="ngModel" ngModel [maxlength]="30" [value]="searchValue"
+        />
+        <button class="btn btn-green submit" type="submit">Add Task</button>
       </div>
-    </fieldset>
-  </form>
+    </div>
+  </fieldset>
+</form>
 <div class="row">
   <div class="col-md-4">
     <div class="panel panel-warning">
@@ -21,7 +22,7 @@
       <div class="panel-body" dnd-sortable-container [dropZones]="['boxers-zone']" [sortableData]="remainingTasks">
         <ul class="list-group">
           <li *ngFor="let item of remainingTasks; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i">{{item}}
-              <button class="btn btn-pill-right btn-success pull-right" type="button" (click)="moveTo($event, item, 'inProgress')">Doing it</button>
+            <button class="btn btn-pill-right btn-success pull-right" type="button" (click)="moveTo($event, item, 'inProgress')">Doing it</button>
           </li>
         </ul>
       </div>
@@ -35,10 +36,10 @@
       <div class="panel-body" dnd-sortable-container [dropZones]="['boxers-zone']" [sortableData]="inProgress">
         <ul class="list-group">
           <li *ngFor="let item of inProgress; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i">{{item}}
-              <div class="pull-right">
+            <div class="pull-right">
               <button class="btn btn-pill-right pull-right btn-primary" type="button" (click)="moveTo($event, item, 'completed')">Finished</button>
               <button class="btn btn-pill-left pull-right btn-warning" type="button" (click)="moveTo($event, item, 'remainingTasks')">Finish Later</button>
-              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -51,11 +52,12 @@
       </div>
       <div class="panel-body" dnd-sortable-container [dropZones]="['boxers-zone']" [sortableData]="completed">
         <ul class="list-group">
-          <li *ngFor="let item of completed; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i"><del>{{item}}</del></li>
+          <li *ngFor="let item of completed; let i = index" class="list-group-item" dnd-sortable [sortableIndex]="i">
+            <del>{{item}}</del>
+          </li>
         </ul>
       </div>
     </div>
   </div>
 </div>
 <div>
-  
