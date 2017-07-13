@@ -63,13 +63,13 @@ export class SortableComponent implements OnInit {
     //     this.initProducts();
     // }
 
-    private addItem(form: NgForm) {
+    addItem(form: NgForm) {
         this.remainingTasks.push(form.value.task)
         form.reset()
     }
 
     
-    private moveTo(event, item, location) {
+    moveTo(event, item, location) {
         const fromLocations = {
             remainingTasks: "inProgress",
             inProgress: "remainingTasks",
