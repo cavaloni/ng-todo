@@ -1,12 +1,12 @@
 <!--<h4>
   Multi list sortable</h4>-->
-  <form class="form-horizontal" #taskForm="ngForm" (ngSubmit)="addItem(taskForm)">
+  <form class="form-horizontal" #taskForm="ngForm" (ngSubmit)="addItem(taskForm)" >
     <fieldset>
       <legend>Angular TODO</legend>
       <div class="form-group">
         <label class="col-sm-2 control-label">New Task</label>
         <div class="col-sm-10">
-          <input class="form-control form-control-rounded" type="text" name="task" #task="ngModel" ngModel/>
+          <input class="form-control form-control-rounded" type="text" name="task" #task="ngModel" ngModel [value]="searchValue"/>
         </div>
       </div>
     </fieldset>

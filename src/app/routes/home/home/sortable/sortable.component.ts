@@ -17,6 +17,7 @@ export class SortableComponent implements OnInit {
     remainingTasks: Array<string> = [];
     inProgress: Array<string> = [];
     completed: Array<string> = [];
+    searchValue: string;
 
     constructor() {
         // this.initProducts();
@@ -64,6 +65,7 @@ export class SortableComponent implements OnInit {
 
     addItem(form: NgForm) {
         this.remainingTasks.push(form.value.task)
+        this.searchValue = null;
     }
 
     
