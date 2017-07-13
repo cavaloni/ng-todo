@@ -50,7 +50,7 @@ Some CSS needed updates to fit elements well with each other. Some of these incl
 
 ### Angular framework specific specs
 
-#####SortableList
+##### SortableList
 
 This component was the only full imported component. The entire component directory was copied to the seed project to preserve the spirit of the project in using only the Angle components. 
 
@@ -60,7 +60,7 @@ The routing structure set by the Angle app made it so that copying the component
 
 Since the Home Module is a sub-module of the Routes Module (which is itself a sub-module of App Module), the component needed to be listed in the NgModule decorator of Home Module under the declarations. This makes the exposed directive selector, 'app-sortable', useable in the templates within that module.
 
-#####Drag and Drop
+##### Drag and Drop
 
 The drag and drop was already implemented in this component, but required a little additional setup in order to function properly: it simply required for the module to be an 'import' in the Home Module.
 
@@ -68,7 +68,7 @@ Even if it were not setup easily, the process is quite simple with this package.
 
 Basically this works by defining 'zones' in which the 'dnd-sortable' items can be placed. The 'dnd-sortable' directive also allows for the items to be sorted through drag and drop, rather than just be placed in different 'zones' only.
 
-#####Using SortableList to create TODO
+##### Using SortableList to create TODO
 
 The SortableList component was setup to maintain its lists through simple Arrays on the component. In the component you will see three of these for each list:
 
@@ -82,7 +82,7 @@ These values are updated through the ngModel directive which passes the value to
 
 The other buttons use event binding to pass in a string value of which array the item will be passed to, which is then handled by the moveTo method.
 
-##Misc notes
+## Misc notes
 * Tests need to be created for this component.
 * Most of the original code in the component was simply commented out, so as to preserve its original state, in the spirit of using only components from Angle
 * Small changes were not noted in here, though they did require some research and knowledge; such as the settings component, which uses the HostBinding module.
