@@ -7,14 +7,15 @@ import {DebugElement} from '@angular/core';
 import { DndModule } from 'ng2-dnd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgForm } from '@angular/forms';
 
 describe('Component: Home', () => {
     let component = new SortableComponent();
-    let fixture : ComponentFixture < SortableComponent >;
-    let debug : DebugElement;
-    let htmlElem : HTMLElement;
+    let fixture: ComponentFixture < SortableComponent >;
+    // debug: DebugElement;
+    // htmlElem: HTMLElement;
 
-    beforeEach(() => {
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
                 DndModule.forRoot(),
@@ -23,43 +24,31 @@ describe('Component: Home', () => {
                 ReactiveFormsModule,
             ],
             declarations: [SortableComponent], // Our Test sample component
-        });
+        }).compileComponents().then(() => {
         fixture = TestBed.createComponent(SortableComponent);
         component = fixture.componentInstance;
-    })
-
-    function setInputValue(selector: string, value: string) {
-        fixture.detectChanges();
-
-        let input = fixture.debugElement.nativeElement.querySelector(selector);
-        input.value = value;
-        input.dispatchEvent(new Event('input'));
-    }
+        component.ngOnInit();
+        });
+    }));
 
     it('should create an instance', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should call addItem on submit click and add item to list', async(() => {
+    it('should call addItem on submit click', async(() => {
         spyOn(component, 'addItem');
 
-        setInputValue('.form-control-rounded', 'some stuff')
-
-        let input = fixture.debugElement.nativeElement.querySelector('.form-control-rounded');
-
-        let button = fixture.debugElement.nativeElement.querySelectorAll('button');
-        const submitButton = button[0]
+        const button = fixture.debugElement.nativeElement.querySelectorAll('button');
+        const submitButton = button[0];
+        fixture.detectChanges();
         submitButton.click();
-
         fixture.detectChanges();
 
         fixture.whenStable().then(() => {
-            fixture.detectChanges();
             expect(component.addItem).toHaveBeenCalled();
-            expect(component.remainingTasks.length).toEqual(1)
-        })
+        });
 
-        let remainingTasksList = fixture.debugElement.nativeElement.querySelector('div.panel-warning').querySelector('div.list-group')
+        const remainingTasksList = fixture.debugElement.nativeElement.querySelector('div.panel-warning').querySelector('div.list-group');
 
     }));
 

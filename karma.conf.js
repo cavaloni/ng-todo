@@ -12,7 +12,13 @@ module.exports = function (config) {
       require('karma-coverage-istanbul-reporter'),
       require('@angular/cli/plugins/karma')
     ],
+    browserConsoleLogOptions: {
+      level: 'log',
+      format: '%b %T: %m',
+      terminal: true
+    },
     client:{
+      captureConsole: true,
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     files: [
@@ -49,4 +55,6 @@ module.exports = function (config) {
     browserDisconnectTolerance : 1,
     browserNoActivityTimeout : 60000 //by default 10000
   });
+
+
 };

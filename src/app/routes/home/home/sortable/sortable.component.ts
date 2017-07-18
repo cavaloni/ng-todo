@@ -14,10 +14,11 @@ export class SortableComponent implements OnInit {
 
     // listOne: Array<string> = ['Coffee', 'Orange Juice', 'Red Wine', 'Unhealty drink!', 'Water'];
 
+    testing: string;
     remainingTasks: Array<string> = [];
     inProgress: Array<string> = [];
     completed: Array<string> = [];
-    searchValue: string;
+    taskValue: string;
 
     constructor() {
         // this.initProducts();
@@ -65,17 +66,17 @@ export class SortableComponent implements OnInit {
 
     addItem(form: NgForm) {
         this.remainingTasks.push(form.value.task)
-        form.reset()
+        form.reset();
     }
 
-    
+
     moveTo(event, item, location) {
         const fromLocations = {
-            remainingTasks: "inProgress",
-            inProgress: "remainingTasks",
-            completed: "inProgress",
-        }
-        const fromLocation = fromLocations[location]
+            remainingTasks: 'inProgress',
+            inProgress: 'remainingTasks',
+            completed: 'inProgress',
+        };
+        const fromLocation = fromLocations[location];
         const index = this[fromLocation].indexOf(item);
         if (index > -1) {
             this[fromLocation].splice(index, 1);
@@ -84,7 +85,7 @@ export class SortableComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.searchValue = '';
+        this.taskValue = '';
     }
 
 }

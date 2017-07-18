@@ -47,7 +47,6 @@ Some CSS needed updates to fit elements well with each other. Some of these incl
 * Input element resize
 * Element position attributes
 * Padding with buttons to reduce size
-* other minor fixes
 
 ### Angular framework specific specs
 
@@ -88,3 +87,23 @@ The other buttons use event binding to pass in a string value of which array the
 * Most of the original code in the component was simply commented out, so as to preserve its original state, in the spirit of using only components from Angle
 * Small changes were not noted in here, though they did require some research and knowledge; such as the settings component, which uses the HostBinding module.
 
+## CouchDB/Cloudant/PouchDB integration for persistance
+
+The security settings for individual databases using CouchDB makes is such that every user can read everything within the database if they wanted. This is a security concern for things that we want to keep private, like our TODOs here. The reccomended and most widely used pattern to keep user's data private when using CouchDB is to use a database-per-user model. This allows a user to have only the data in that particular database sent to them and not have access to another database. In fact, it is the only way that I have found. The user is then set to be their own admin to perform CRUD operations on their own database.
+
+#### Overview of implementation
+
+It took some time to grasp the implementation details of this pattern, as guides and assistance is sparsely available online. The server.js file in the root directory does show an initial node.js start to setup the Cloudant connection, and then setting the user as the database name and admin for their database. The next steps would be to setup the databse on Cloudant to include a _users directory. (This is because Cloudant does not use the default CouchDB setup for authorization, and we need it to keep a password for the user.) Once the users DB has been created and their admin and password set, a session cookie is obtained on the node server, and then sent to the client side to use for its connection to the database. This is so that the PouchDB can sync with Cloudant, and therefore minimize lag, without using the node.js server as a proxy, which would slow down syncing considerably. 
+
+#### Details
+
+The implementation details are still being researched. The current difficulty is in setting up the Cloudant databse _user database and finding an appropriate password hashing solution. From there, the next challenge will be setting the cookie session to be only applicable to the database admin, and not the account admin. Once this is set then the rest of the implementation outlined above should be relatively painless. Most of the information needed to complete this is here: [https://stackoverflow.com/questions/33152085/managing-cloudant-access-through-users-database](https://stackoverflow.com/questions/33152085/managing-cloudant-access-through-users-database)
+I will be working on this as time allows.
+
+## Update on Tests
+
+I am running into troubles gettin the onSubmit to properly trigger the form submission. I have tried about 10 different methods listed on line to trigger it. Karma/Jasmine does recognize that it has been triggered, because this line passes:
+
+    expect(component.addItem).toHaveBeenCalled();
+
+  But then none of the code on the method actually updates the component. This is after using detectChanges() and whenStable(). I have scoured the web and was not able to find something to fix this. There is a possible alternative to re-write the structure of the form to include the use of FormGroup, FormControl, and FormBuilder. But this seemed excessive for a one input element form model, so if anything, restrucuring to remove the form altogether would make it more testable. This is demonstrated well here: [https://codecraft.tv/courses/angular/unit-testing/model-driven-forms/](https://codecraft.tv/courses/angular/unit-testing/model-driven-forms/). Re-writing to simply fit tests seems a bit anti-pattern, so I have left it as a simple test which verifies what I mentioned above in the code block. So in conclusion, more research is necessary to properly test a form and its input.
